@@ -5,7 +5,7 @@ import hideIcon from '../assets/image/hide.png';
 
 import '../assets/style/style.css';
 
-export default function Sidebar({ isOpen, onClose }) {
+export default function Sidebar({ isOpen, onClose, onAddListClick}) {
   const [isToggled, setIsToggled] = useState(false);
 
   const onBtnClick = () => {
@@ -27,7 +27,7 @@ export default function Sidebar({ isOpen, onClose }) {
         padding: isOpen ? '1rem' : '0',
         boxShadow: '0 4px 4px rgba(0, 0, 0, 0.25)',
         position: 'absolute',
-        zIndex: 1,
+        zIndex: 2,
       }}>
         <h1 style={{marginBottom: 0}}>List</h1>
         <div style={{display: 'flex', justifyContent: 'center'}}>
@@ -70,7 +70,7 @@ export default function Sidebar({ isOpen, onClose }) {
         
           
         <div style={{ display: 'flex', gap: '8px' }}>
-            <button>Add List</button>
+            <button onClick={onAddListClick}>Add List</button>
             <button>Add Course</button>
         </div>
       </aside>

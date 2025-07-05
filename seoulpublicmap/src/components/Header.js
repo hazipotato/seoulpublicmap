@@ -11,7 +11,7 @@ function Header({ onMenuClick}) {
       color: 'black',
       boxShadow: '0 4px 4px rgba(0, 0, 0, 0.25)',
       position: 'relative',
-      zIndex: 2,
+      zIndex: 3,
     }}>
       {/* 왼쪽 - 메뉴 버튼 (해당 형식은 JSX 주석임)*/}
       <button
