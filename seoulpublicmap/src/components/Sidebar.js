@@ -31,7 +31,7 @@ export default function Sidebar({ isOpen, onClose, onAddListClick}) {
       }}>
         <h1 style={{marginBottom: 0}}>List</h1>
         <div style={{display: 'flex', justifyContent: 'center'}}>
-          <input type="text" placeholder=" 검색창 (임시) " />
+          <input type="text" class="search-input" placeholder=" 검색창 (임시) " />
         </div>
         
         <div style={{
@@ -41,7 +41,7 @@ export default function Sidebar({ isOpen, onClose, onAddListClick}) {
         }}>
           <h4 style={{opacity: 0.5, margin: '0'}}>대학로 분좋카</h4>
           <div>
-            <button 
+            <button id='add'
               onClick={onBtnClick}
               style={{
                 flex: 1,
@@ -50,7 +50,7 @@ export default function Sidebar({ isOpen, onClose, onAddListClick}) {
                 cursor: 'pointer'}}>
                 <img src={addIcon} alt='add icon'></img>
             </button>
-            <button
+            <button id='more'
               onClick={onMoreClick}
               style={{
                 flex: 1,
@@ -69,9 +69,28 @@ export default function Sidebar({ isOpen, onClose, onAddListClick}) {
         </ul>
         
           
-        <div style={{ display: 'flex', gap: '8px' }}>
-            <button onClick={onAddListClick}>Add List</button>
-            <button>Add Course</button>
+        <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
+            <button id='Add List'
+              onClick={onAddListClick}
+              style={{
+                width: '47%',
+                aspectRatio: 3 / 1,
+                backgroundColor: 'white',
+                border: 'none',
+                borderRadius: '5px',
+                boxShadow: '0 4px 4px rgba(0, 0, 0, 0.25)'}}>
+                <img src={addIcon} alt='add icon'></img>Add List
+            </button>
+            <button id='Add Course'
+              style={{
+                width: '47%',
+                aspectRatio: 3 / 1,
+                backgroundColor: 'white',
+                border: 'none',
+                borderRadius: '5px',
+                boxShadow: '0 4px 4px rgba(0, 0, 0, 0.25)'}}>
+                <img src={addIcon} alt='add icon'></img>Add Course
+            </button>
         </div>
       </aside>
     );

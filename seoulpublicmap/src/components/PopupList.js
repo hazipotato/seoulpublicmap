@@ -16,15 +16,28 @@ function PopupList({ onClose, sidebarWidth }) {
     }}>
       <div style={{
         backgroundColor: 'white',
-        padding: '20px',
-        borderRadius: '8px',
-        width: '300px',  // 팝업 너비
+        padding: '50px',
+        borderRadius: '30px',
+        width: '400px',  // 팝업 너비
         maxWidth: '90%',  // 화면 크기에 맞춰 최대 90% 너비
-        boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.3)',  // 그림자 효과
-        textAlign: 'center',
+        boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',  // 그림자 효과
+        textAlign: 'left',
+        display: 'flex',
+        flexDirection: 'column'
       }}>
-        <h2>팝업 제목</h2>
-        <p>팝업 내용</p>
+        <h2>Add List</h2>
+        <h3>List Name</h3>
+        <div style={{display: 'flex', justifyContent: 'center'}}>
+          <input type="text" placeholder=" 검색창 (임시) " />
+        </div>
+        <h3>Place 1 Location</h3>
+        <div style={{display: 'flex', justifyContent: 'center'}}>
+          <input type="text" placeholder=" 검색창 (임시) " />
+        </div>
+        <h3>Explanation(Optional)</h3>
+        <div style={{display: 'flex', justifyContent: 'center'}}>
+          <input type="text" placeholder=" 검색창 (임시) " />
+        </div>
         <button
           onClick={onClose}
           style={{
