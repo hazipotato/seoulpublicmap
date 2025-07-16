@@ -72,11 +72,12 @@ function App() {
         }}>
         <Search></Search>
       </div>
-
+      
     </div>
   );
 }
 
 export default App;
+
 
 
