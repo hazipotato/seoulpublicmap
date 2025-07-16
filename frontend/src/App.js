@@ -21,6 +21,7 @@ function App() {
   const sidebarWidth = sidebarOpen ? '22.22vw' : '0';
 //--------------카카오맵 로드!!!! ----------
   useEffect(() => {
+
     // 이미 스크립트가 있으면 중복 추가 방지(index.html에 스크립트를 추가하면 react렌더링이랑 타이밍이 안맞아서 가려진대여. -> 그래서 useEffect에서 추가함)
     if (document.getElementById('kakao-map-script')) {
       if (window.kakao && window.kakao.maps) {
