@@ -30,10 +30,6 @@ function PopupList({ onClose, sidebarWidth }) {
         <div style={{display: 'flex', justifyContent: 'center'}}>
           <input type="text" placeholder=" 검색창 (임시) " />
         </div>
-        <h3>Place 1 Location</h3>
-        <div style={{display: 'flex', justifyContent: 'center'}}>
-          <input type="text" placeholder=" 검색창 (임시) " />
-        </div>
         <h3>Explanation(Optional)</h3>
         <div style={{display: 'flex', justifyContent: 'center'}}>
           <input type="text" placeholder=" 검색창 (임시) " />
@@ -50,7 +46,7 @@ function PopupList({ onClose, sidebarWidth }) {
             cursor: 'pointer',
           }}
         >
-          닫기
+          저장하기
         </button>
       </div>
     </div>

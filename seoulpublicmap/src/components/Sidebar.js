@@ -23,7 +23,7 @@ export default function Sidebar({ isOpen, onClose, onAddListClick}) {
         overflow: 'hidden',
         backgroundColor: '#ffffff',
         color: 'black',
-        height: '100vh',
+        height: '100dvh',
         padding: isOpen ? '1rem' : '0',
         boxShadow: '0 4px 4px rgba(0, 0, 0, 0.25)',
         position: 'absolute',
