@@ -25,7 +25,12 @@ function PopupList({ onClose, sidebarWidth }) {
         display: 'flex',
         flexDirection: 'column'
       }}>
-        <h2>Add List</h2>
+        <h2>Add List / Course</h2>
+        <h3>Type</h3>
+        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+          <button style={{width: "45%"}}>List</button>
+          <button style={{width: "45%"}}>Course</button>
+        </div>
         <h3>List Name</h3>
         <div style={{display: 'flex', justifyContent: 'center'}}>
           <input type="text" placeholder=" 검색창 (임시) " />

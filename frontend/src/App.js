@@ -11,6 +11,7 @@ function App() {
   const [showPopupList, setPopupListOpen] = useState(false);
   const [map, setMap] = useState(null);      // 지도 참조
   const [markers, setMarkers] = useState([]); // 마커담는 배열
+  const [showSearch, setShowSearch] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarOpen(prev => !prev); // 열려 있으면 닫고, 닫혀 있으면 열고
@@ -18,6 +19,10 @@ function App() {
 
   const togglePopupList = () => {
     setPopupListOpen(prev => !prev);
+  };
+
+  const toggleAdd = () => {
+    setShowSearch(prev => !prev);
   };
 
   const sidebarWidth = sidebarOpen ? '22.22vw' : '0';
@@ -80,7 +85,8 @@ function App() {
       <Header onMenuClick={toggleSidebar} />
       <Sidebar
         isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)}
-        onAddListClick={togglePopupList} />
+        onAddListClick={togglePopupList}
+        onToggleAdd={toggleAdd}/>
       {showPopupList && <PopupList onClose={togglePopupList} sidebarWidth={sidebarWidth}/>}
       <div id="map" style={{ width: "100vw", height: "100vh", position: "absolute", top: 0, left: 0, zIndex: 0 }}></div>
       <div
@@ -92,7 +98,19 @@ function App() {
           justifyContent: 'center',
           zIndex: 4, // 필요하면 추가
         }}>
-        <Search onSearch={searchPlaces} />
+        {showSearch && (
+          <div
+            style={{
+              position: 'fixed',
+              width: '100%',
+              bottom: 0,
+              display: 'flex',
+              justifyContent: 'center',
+              zIndex: 4,
+            }}>
+            <Search onSearch={searchPlaces} />
+          </div>
+        )}
       </div>
       
     </div>

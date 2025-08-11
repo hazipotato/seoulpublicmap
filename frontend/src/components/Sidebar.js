@@ -5,7 +5,7 @@ import hideIcon from '../assets/image/hide.png';
 
 import '../assets/style/style.css';
 
-export default function Sidebar({ isOpen, onClose, onAddListClick}) {
+export default function Sidebar({ isOpen, onClose, onAddListClick, onToggleAdd, showSearch}) {
   const [isToggled, setIsToggled] = useState(false);
 
   const onBtnClick = () => {
@@ -42,13 +42,16 @@ export default function Sidebar({ isOpen, onClose, onAddListClick}) {
           <h4 style={{opacity: 0.5, margin: '0'}}>대학로 분좋카</h4>
           <div>
             <button id='add'
-              onClick={onBtnClick}
+              onClick={() => {
+                onBtnClick();
+                onToggleAdd();
+              }}
               style={{
                 flex: 1,
                 backgroundColor: 'transparent',
                 border: 'none',
                 cursor: 'pointer'}}>
-                <img src={addIcon} alt='add icon'></img>
+              <img src={addIcon} alt='add icon'></img>
             </button>
             <button id='more'
               onClick={onMoreClick}
@@ -70,26 +73,16 @@ export default function Sidebar({ isOpen, onClose, onAddListClick}) {
         
           
         <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
-            <button id='Add List'
+            <button id='Add List / Course'
               onClick={onAddListClick}
               style={{
-                width: '47%',
-                aspectRatio: 3 / 1,
+                width: '100%',
+                aspectRatio: 6 / 1,
                 backgroundColor: 'white',
                 border: 'none',
                 borderRadius: '5px',
                 boxShadow: '0 4px 4px rgba(0, 0, 0, 0.25)'}}>
                 <img src={addIcon} alt='add icon'></img>Add List
-            </button>
-            <button id='Add Course'
-              style={{
-                width: '47%',
-                aspectRatio: 3 / 1,
-                backgroundColor: 'white',
-                border: 'none',
-                borderRadius: '5px',
-                boxShadow: '0 4px 4px rgba(0, 0, 0, 0.25)'}}>
-                <img src={addIcon} alt='add icon'></img>Add Course
             </button>
         </div>
       </aside>
