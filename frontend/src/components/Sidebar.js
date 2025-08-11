@@ -31,7 +31,7 @@ export default function Sidebar({ isOpen, onClose, onAddListClick, onToggleAdd, 
       }}>
         <h1 style={{marginBottom: 0}}>List</h1>
         <div style={{display: 'flex', justifyContent: 'center'}}>
-          <input type="text" class="search-input" placeholder=" 검색창 (임시) " />
+          <input type="text" className="search-input" placeholder=" 검색창 (임시) " />
         </div>
         
         <div style={{
@@ -73,7 +73,7 @@ export default function Sidebar({ isOpen, onClose, onAddListClick, onToggleAdd, 
         
           
         <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
-            <button id='Add List / Course'
+            <button id='Add'
               onClick={onAddListClick}
               style={{
                 width: '100%',
@@ -82,7 +82,7 @@ export default function Sidebar({ isOpen, onClose, onAddListClick, onToggleAdd, 
                 border: 'none',
                 borderRadius: '5px',
                 boxShadow: '0 4px 4px rgba(0, 0, 0, 0.25)'}}>
-                <img src={addIcon} alt='add icon'></img>Add List
+                <img src={addIcon} alt='add icon'></img>Add List / Course
             </button>
         </div>
       </aside>
