@@ -17,7 +17,7 @@ function PopupList({ onClose, sidebarWidth }) {
     };
 
     try {
-      const res = await fetch("http://localhost:4000/api/lists", {
+      const res = await fetch("/api/lists", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
