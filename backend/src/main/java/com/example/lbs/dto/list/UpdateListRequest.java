@@ -9,4 +9,7 @@ public class UpdateListRequest {
     @NotBlank
     @JsonAlias({"listName", "name"})
     private String name;
+
+    @JsonAlias({"explanation"})
+    private String explanation;
 }
