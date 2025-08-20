@@ -9,32 +9,50 @@ function PopupList({ onClose, sidebarWidth }) {
 
   const handleSubmit = async () => {
     setSaving(true);
-    
-    const payload = {
-      type,
-      listName,
-      explanation
-    };
 
     try {
-      const res = await fetch("http://localhost:4000/api/lists", {
+      const res1 = await fetch("http://localhost:4000/api/lists", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({type}),
       });
     
-     if (res.ok) {
-        alert("저장 성공!");
-        onClose();
-      } else {
-        alert("저장 실패");
-      }
-    } catch (err) {
-      console.error(err);
+     if (!res1.ok) {
+        alert("타입 저장 실패");
+        setSaving(false);
+        return;
+     }
+
+     const res2 = await fetch("http://localhost:4000/api/lists", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          listName,
+          explanation,
+        }),
+    });
+  
+
+    if (res2.ok) {
+      alert("저장 성공!");
+      onClose();
     }
-  };
+    else {
+      alert("저장 실패");
+    }
+  }
+    catch (err) {
+      console.error(err);
+      alert("에러 발생");
+    }
+    finally {
+      setSaving(false);
+    }
+  }
    
   return (
     <div style={{
