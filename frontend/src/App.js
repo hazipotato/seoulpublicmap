@@ -48,8 +48,9 @@ function App() {
     const script   = document.createElement('script');
     script.id      = 'kakao-map-script';
     script.async   = true;
-    script.src     =
-      '//dapi.kakao.com/v2/maps/sdk.js?appkey=d654c0c9a4aff2d1bc327337babca6a4&autoload=false&libraries=services';  // 이거 키 빼놔야함
+    const appkey = process.env.REACT_APP_KAKAO_JS_KEY;
+    script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${appkey}&autoload=false&libraries=services`;
+
     script.onload  = () => window.kakao.maps.load(initMap);
     document.head.appendChild(script);
   }, []);
