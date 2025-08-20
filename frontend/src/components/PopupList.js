@@ -11,33 +11,33 @@ function PopupList({ onClose, sidebarWidth }) {
     setSaving(true);
 
     try {
-      const res1 = await fetch("http://localhost:4000/api/lists", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({type}),
-      });
-    
-     if (!res1.ok) {
-        alert("타입 저장 실패");
-        setSaving(false);
-        return;
-     }
 
-     const res2 = await fetch("http://localhost:4000/api/lists", {
+
+      if (!listName.trim()) {
+             alert("제목을 입력하세요");
+              setSaving(false);
+              return;
+            }
+
+            // 2) List/Course 엔드포인트 분기
+            const endpoint =
+              type === "Course"
+                ? "http://localhost:4000/api/courses"
+                : "http://localhost:4000/api/lists";
+
+            const res = await fetch(endpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          listName,
-          explanation,
+          name: listName.trim(),
+          explanation
         }),
     });
   
 
-    if (res2.ok) {
+    if (res.ok) {
       alert("저장 성공!");
       onClose();
     }
@@ -81,8 +81,14 @@ function PopupList({ onClose, sidebarWidth }) {
         <h2>Add List / Course</h2>
         <h3>Type</h3>
         <div style={{display: 'flex', justifyContent: 'space-between'}}>
-          <button style={{width: "45%"}}>List</button>
-          <button style={{width: "45%"}}>Course</button>
+          <button
+             onClick={() => setType("List")}
+             style={{ width: "45%", fontWeight: type === "List" ? "700" : "400" }}
+           >List</button>
+           <button
+             onClick={() => setType("Course")}
+             style={{ width: "45%", fontWeight: type === "Course" ? "700" : "400" }}
+           >Course</button>
         </div>
         <h3>Title</h3>
         <div style={{display: 'flex', justifyContent: 'center'}}>

@@ -56,29 +56,26 @@ function App() {
   }, []);
 
 // ------------ 키워드로 검색 + 핑 출력 -----------------------
-  const searchPlaces = (keyword) => {
-      if (!map || !window.kakao) return;
+  const searchPlaces = async (keyword) => {
+    if (!map) return;
 
-      //이전 마커 제거배열 지우기
-      markers.forEach((mk) => mk.setMap(null));
-      setMarkers([]);
+    // 기존 마커 정리
+    markers.forEach(m => m.setMap(null));
+    setMarkers([]);
 
-       //이거(ps)가 장소 검색 객체
-      const ps = new window.kakao.maps.services.Places();
-      ps.keywordSearch(keyword, (data, status) => {
-        if (status !== window.kakao.maps.services.Status.OK) return;
+    const res = await fetch("/api/places/search?query=" + encodeURIComponent(keyword));
+    if (!res.ok) return;
+    const data = await res.json(); // [{id,name,latitude,longitude}]
 
-        const bounds = new window.kakao.maps.LatLngBounds();
-        const newMarkers = data.map((p) => {
-          const pos = new window.kakao.maps.LatLng(p.y, p.x);
-          bounds.extend(pos);
-          const mk = new window.kakao.maps.Marker({ map, position: pos });
-          return mk;
-        });
-        map.setBounds(bounds);
-        setMarkers(newMarkers);
-      });
-    };
+    const bounds = new window.kakao.maps.LatLngBounds();
+    const ms = data.map(p => {
+      const pos = new window.kakao.maps.LatLng(p.latitude, p.longitude);
+      bounds.extend(pos);
+      return new window.kakao.maps.Marker({ map, position: pos });
+    });
+    if (!bounds.isEmpty()) map.setBounds(bounds);
+    setMarkers(ms);
+  };
 
 
   return (
@@ -113,7 +110,7 @@ function App() {
           </div>
         )}
       </div>
-      
+
     </div>
   );
 }
