@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-function PopupList({ onClose, sidebarWidth }) {
+function Popup({ onClose, sidebarWidth }) {
   const [type, setType] = useState("List"); // List or Course
-  const [listName, setListName] = useState("");
+  const [Name, setName] = useState("");
   const [explanation, setExplanation] = useState("");
 
   const [saving, setSaving] = useState(false);
@@ -10,50 +10,37 @@ function PopupList({ onClose, sidebarWidth }) {
   const handleSubmit = async () => {
     setSaving(true);
 
+    const endpoint = type === "List" ? "/Lists" : "/courses";
+
+    const data = {
+      Name,
+      explanation,
+    };
+
     try {
-      const res1 = await fetch("http://localhost:4000/api/lists", {
-        method: "POST",
+      const response = await fetch(endpoint, {
+        method: "POST", //HTTP 요청 방식 지정
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json", //내가 보내는 데이터는 JSON 형식임을 서버에 알려줌
         },
-        body: JSON.stringify({type}),
+        body: JSON.stringify(data),
       });
-    
-     if (!res1.ok) {
-        alert("타입 저장 실패");
-        setSaving(false);
-        return;
-     }
 
-     const res2 = await fetch("http://localhost:4000/api/lists", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          listName,
-          explanation,
-        }),
-    });
-  
+      if (response.ok) {
+        alert(`${type} 저장 성공!`);
+        setName("");
+        setExplanation("");
+      }
+      else {
+        alert("저장 실패");
+      }
+  }
+    catch (error) {
+      console.error("Error:", error);
+      alert("서버 오류 발생")
+    }
+  };
 
-    if (res2.ok) {
-      alert("저장 성공!");
-      onClose();
-    }
-    else {
-      alert("저장 실패");
-    }
-  }
-    catch (err) {
-      console.error(err);
-      alert("에러 발생");
-    }
-    finally {
-      setSaving(false);
-    }
-  }
-   
   return (
     <div style={{
       position: 'fixed',
@@ -81,16 +68,20 @@ function PopupList({ onClose, sidebarWidth }) {
         <h2>Add List / Course</h2>
         <h3>Type</h3>
         <div style={{display: 'flex', justifyContent: 'space-between'}}>
-          <button style={{width: "45%"}}>List</button>
-          <button style={{width: "45%"}}>Course</button>
+          <button
+            style={{width: "45%"}}
+            onClick={() => setType("List")}>List</button>
+          <button
+            style={{width: "45%"}}
+            onClick={() => setType("Course")}>Course</button>
         </div>
         <h3>Title</h3>
         <div style={{display: 'flex', justifyContent: 'center'}}>
           <input
             type="text"
             placeholder="제목"
-            value={listName}
-            onChange={(e) => setListName(e.target.value)}
+            value={Name}
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
         <h3>Explanation(Optional)</h3>
@@ -121,4 +112,4 @@ function PopupList({ onClose, sidebarWidth }) {
   );
 }
 
-export default PopupList;
+export default Popup;
