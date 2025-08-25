@@ -18,6 +18,7 @@ function Popup({ onClose, sidebarWidth }) {
     };
 
     try {
+<<<<<<< HEAD:frontend/src/components/Popup.js
       const response = await fetch(endpoint, {
         method: "POST", //HTTP 요청 방식 지정
         headers: {
@@ -41,6 +42,51 @@ function Popup({ onClose, sidebarWidth }) {
     }
   };
 
+=======
+
+
+      if (!listName.trim()) {
+             alert("제목을 입력하세요");
+              setSaving(false);
+              return;
+            }
+
+            // 2) List/Course 엔드포인트 분기
+            const endpoint =
+              type === "Course"
+                ? "http://localhost:4000/api/courses"
+                : "http://localhost:4000/api/lists";
+
+            const res = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name: listName.trim(),
+          explanation
+        }),
+    });
+  
+
+    if (res.ok) {
+      alert("저장 성공!");
+      onClose();
+    }
+    else {
+      alert("저장 실패");
+    }
+  }
+    catch (err) {
+      console.error(err);
+      alert("에러 발생");
+    }
+    finally {
+      setSaving(false);
+    }
+  }
+   
+>>>>>>> 50207d68dcd66ffb50127cb379cf5abfb42c3482:frontend/src/components/PopupList.js
   return (
     <div style={{
       position: 'fixed',
@@ -69,11 +115,21 @@ function Popup({ onClose, sidebarWidth }) {
         <h3>Type</h3>
         <div style={{display: 'flex', justifyContent: 'space-between'}}>
           <button
+<<<<<<< HEAD:frontend/src/components/Popup.js
             style={{width: "45%"}}
             onClick={() => setType("List")}>List</button>
           <button
             style={{width: "45%"}}
             onClick={() => setType("Course")}>Course</button>
+=======
+             onClick={() => setType("List")}
+             style={{ width: "45%", fontWeight: type === "List" ? "700" : "400" }}
+           >List</button>
+           <button
+             onClick={() => setType("Course")}
+             style={{ width: "45%", fontWeight: type === "Course" ? "700" : "400" }}
+           >Course</button>
+>>>>>>> 50207d68dcd66ffb50127cb379cf5abfb42c3482:frontend/src/components/PopupList.js
         </div>
         <h3>Title</h3>
         <div style={{display: 'flex', justifyContent: 'center'}}>
