@@ -10,7 +10,4 @@ public class CreateListRequest {
     @NotBlank
     @JsonAlias({"listName", "name"})
     private String name;
-
-    @JsonAlias({"explanation"})
-    private String explanation;
 }

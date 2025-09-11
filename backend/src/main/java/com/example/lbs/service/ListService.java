@@ -21,15 +21,14 @@ public class ListService {
     public ListSummaryDto create(CreateListRequest req) {
         PlaceList saved = repo.save(PlaceList.builder()
                 .name(req.getName())
-                .explanation(req.getExplanation())
                 .build());
-        return new ListSummaryDto(saved.getId(), saved.getName(), saved.getExplanation());
+        return new ListSummaryDto(saved.getId(), saved.getName());
     }
 
     @Transactional(readOnly = true)
     public List<ListSummaryDto> findAll() {
         return repo.findAll().stream()
-                .map(l -> new ListSummaryDto(l.getId(), l.getName(), l.getExplanation()))
+                .map(l -> new ListSummaryDto(l.getId(), l.getName()))
                 .toList();
     }
 
@@ -37,15 +36,14 @@ public class ListService {
     public ListSummaryDto findOne(Long id) {
         PlaceList l = repo.findById(id)
                 .orElseThrow(() -> new ApiException(404, "리스트가 없습니다."));
-        return new ListSummaryDto(l.getId(), l.getName(), l.getExplanation());
+        return new ListSummaryDto(l.getId(), l.getName());
     }
 
     public ListSummaryDto update(Long id, UpdateListRequest req) {
         PlaceList l = repo.findById(id)
                 .orElseThrow(() -> new ApiException(404, "리스트가 없습니다."));
         l.setName(req.getName()); // 변경감지
-        l.setExplanation(req.getExplanation());
-        return new ListSummaryDto(l.getId(), l.getName(), l.getExplanation());
+        return new ListSummaryDto(l.getId(), l.getName());
     }
 
     public void delete(Long id) {

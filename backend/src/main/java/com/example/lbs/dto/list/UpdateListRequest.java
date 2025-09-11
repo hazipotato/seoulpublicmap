@@ -10,6 +10,4 @@ public class UpdateListRequest {
     @JsonAlias({"listName", "name"})
     private String name;
 
-    @JsonAlias({"explanation"})
-    private String explanation;
 }
