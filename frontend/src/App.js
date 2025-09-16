@@ -1,6 +1,6 @@
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
-import PopupList from './components/PopupList';
+import Popup from './components/Popup';
 import Search from './components/Search';
 import React, { useState, useEffect } from 'react';
 
@@ -8,7 +8,7 @@ import './App.css';
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [showPopupList, setPopupListOpen] = useState(false);
+  const [showPopup, setPopupOpen] = useState(false);
   const [map, setMap] = useState(null);      // 지도 참조
   const [markers, setMarkers] = useState([]); // 마커담는 배열
   const [showSearch, setShowSearch] = useState(false);
@@ -17,8 +17,8 @@ function App() {
     setSidebarOpen(prev => !prev); // 열려 있으면 닫고, 닫혀 있으면 열고
   };
 
-  const togglePopupList = () => {
-    setPopupListOpen(prev => !prev);
+  const togglePopup = () => {
+    setPopupOpen(prev => !prev);
   };
 
   const toggleAdd = () => {
@@ -83,10 +83,10 @@ function App() {
       <Header onMenuClick={toggleSidebar} />
       <Sidebar
         isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)}
-        onAddListClick={togglePopupList}
+        onAddListClick={togglePopup}
         onToggleAdd={toggleAdd}/>
-      {showPopupList && <PopupList onClose={togglePopupList} sidebarWidth={sidebarWidth}/>}
-      <div id="map" style={{ width: "100vw", height: "100vh", position: "absolute", top: 0, left: 0, zIndex: 0 }}></div>
+      {showPopup && <Popup onClose={togglePopup} sidebarWidth={sidebarWidth}/>}
+      <div id="map" style={{ width: "100vw", eight: "100vh", position: "absolute", top: 0, left: 0, zIndex: 0 }}></div>
       <div
         style={{
           position: 'fixed',
