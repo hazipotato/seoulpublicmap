@@ -1,0 +1,31 @@
+{
+  "lists": [
+    {
+      "id": "1",
+      "Name": "철수",
+      "explanation": "내용입니다."
+    },
+    {
+      "id": "882b",
+      "Name": "테스트",
+      "explanation": "설명"
+    },
+    {
+      "id": "8cfd",
+      "Name": "태스트1",
+      "explanation": ""
+    },
+    {
+      "id": "2e8a",
+      "Name": "테스트2",
+      "explanation": "테스트"
+    }
+  ],
+  "courses": [
+    {
+      "id": "1",
+      "name": "첫 글",
+      "explanation": "내용입니다."
+    }
+  ]
+}

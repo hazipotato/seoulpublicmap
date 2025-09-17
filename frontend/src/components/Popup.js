@@ -10,7 +10,10 @@ function Popup({ onClose, sidebarWidth }) {
   const handleSubmit = async () => {
     setSaving(true);
 
-    const endpoint = type === "List" ? "/Lists" : "/courses";
+    const endpoint =
+      type === "List"
+        ? "http://localhost:4000/lists"
+        : "http://localhost:4000/courses";
 
     const data = {
       Name,

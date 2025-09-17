@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-import moreIcon from "../assets/image/more.png";
-import addIcon from "../assets/image/add.png";
-import hideIcon from "../assets/image/hide.png";
+import React, { useState, useEffect } from "react";
 
 import "../assets/style/style.css";
+import hideIcon from "../assets/image/hide.png";
+import moreIcon from "../assets/image/more.png";
+import addIcon from "../assets/image/add.png";
+
+import DisplayList from "./DisplayList";
 
 export default function Sidebar({
   isOpen,
@@ -12,18 +14,18 @@ export default function Sidebar({
   onToggleAdd,
   showSearch,
 }) {
-  const [isToggled, setIsToggled] = useState(false);
-
   const onBtnClick = () => {
     console.log("Button clicked");
   };
 
-  const onMoreClick = () => {
-    setIsToggled((prev) => !prev); // true <-> false 토글
-  };
+  const [data, setData] = useState([]);
 
-  const query = new URLSearchParams(window.location.search);
-  const name = query.get("name");
+  useEffect(() => {
+    fetch("http://localhost:4000/lists") // json-server endpoint
+      .then((res) => res.json())
+      .then((json) => setData(json))
+      .catch((err) => console.error(err));
+  }, []);
 
   return (
     <aside
@@ -56,43 +58,35 @@ export default function Sidebar({
           justifyContent: "space-between",
         }}
       >
-        <h4 style={{ opacity: 0.5, margin: "0" }}>{name}</h4>
-        <div>
-          <button
-            id="add"
-            onClick={() => {
-              onBtnClick();
-              onToggleAdd();
-            }}
-            style={{
-              flex: 1,
-              backgroundColor: "transparent",
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
-            <img src={addIcon} alt="add icon"></img>
-          </button>
-          <button
-            id="more"
-            onClick={onMoreClick}
-            style={{
-              flex: 1,
-              backgroundColor: "transparent",
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
-            <img src={isToggled ? moreIcon : hideIcon} alt="more icon" />
-          </button>
-        </div>
+        <ul style={{ padding: "0", margin: "0" }}>
+          {data.map((item) => {
+            const displayName = item.name || item.Name; // 소문자/대문자 처리
+            return (
+              <div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <h4 style={{ margin: "0" }} key={item.id}>
+                    {displayName}
+                  </h4>
+                  <DisplayList />
+                </div>
+
+                <ul>
+                  <li>청킹</li>
+                  <li>그루</li>
+                  <li>타르트앤</li>
+                  <li>커피한약방</li>
+                </ul>
+              </div>
+            );
+          })}
+        </ul>
       </div>
-      <ul>
-        <li>청킹</li>
-        <li>그루</li>
-        <li>타르트앤</li>
-        <li>커피한약방</li>
-      </ul>
 
       <div
         style={{
