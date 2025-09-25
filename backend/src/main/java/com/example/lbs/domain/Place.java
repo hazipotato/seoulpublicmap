@@ -1,5 +1,5 @@
 package com.example.lbs.domain;
-
+//여기가 place도메인
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,6 +8,10 @@ import lombok.*;
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor @Builder
 public class Place {
+
+    @Column(unique = true)
+    private Long kakaoPlaceId;
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -17,7 +21,7 @@ public class Place {
     @Column(length = 255)
     private String address;
 
-    // 위도/경도는 null 허용 (스냅샷이 없을 수도 있음)
+
     @Column(nullable = false)
     private Double latitude;
 

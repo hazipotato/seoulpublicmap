@@ -1,5 +1,5 @@
 package com.example.lbs.domain;
-
+//여기가 걍 list도메인임
 import jakarta.persistence.*;
 import lombok.*;
 

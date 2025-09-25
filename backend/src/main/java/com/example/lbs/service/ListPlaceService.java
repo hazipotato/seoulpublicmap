@@ -36,38 +36,36 @@ public class ListPlaceService {
     }
 
     //리스트에 장소 추가
-    // req.placeId 가 있으면 기존 장소를 연결
-    // 마약 없을 ㅣㅅ!!!! name/latitude/longitude 로 새 Place 생성 후 연결 (address/explanation 옵션)
-    //이미 연결되어 있으면 중복 저장 없이 그대로 반환
 
     public PlaceDetailDto addOrCreatePlace(Long listId, AddOrCreatePlaceRequest req) {
+        // 리스트 존재 여부 확인
         PlaceList list = placeListRepository.findById(listId)
                 .orElseThrow(() -> new ApiException(404, "리스트가 없습니다."));
 
-        Place place;
-        if (req.getPlaceId() != null) {
-            place = placeRepository.findById(req.getPlaceId())
-                    .orElseThrow(() -> new ApiException(404, "장소가 없습니다."));
-        } else {
-            if (req.getName() == null || req.getName().isBlank()
-                    || req.getLatitude() == null || req.getLongitude() == null) {
-                throw new ApiException(400, "name/latitude/longitude는 필수입니다.");
-            }
-            place = placeRepository.save(Place.builder()
-                    .name(req.getName())
-                    .address(req.getAddress())
-                    .latitude(req.getLatitude())
-                    .longitude(req.getLongitude())
-                    .explanation(req.getExplanation())
-                    .build());
+        //  kakaoPlaceId로 우리 DB에 장소가 이미 있는지 확인
+        Place place = placeRepository.findByKakaoPlaceId(req.getKakaoPlaceId())
+                .orElseGet(() -> {
+                    // DB에 없으면 새로 생성 함
+                    return placeRepository.save(Place.builder()
+                            .kakaoPlaceId(req.getKakaoPlaceId()) // kakaoPlaceId 저장
+                            .name(req.getPlaceName())
+                            .address(req.getAddress())
+                            .latitude(req.getLatitude())
+                            .longitude(req.getLongitude())
+                            .build());
+                });
+
+        // 리스트와 장소의연결이 이미 존재하는지 확인
+        if (listPlaceRepository.existsByListAndPlace(list, place)) {
+            // 이미 연결되어 있다면, 중복 저장 없이 그대로 장소 정보를 반환
+            return toDto(place);
         }
 
-        if (!listPlaceRepository.existsByList_IdAndPlace_Id(listId, place.getId())) {
-            listPlaceRepository.save(ListPlace.builder()
-                    .list(list)
-                    .place(place)
-                    .build());
-        }
+        // 연결되어 있지 않다면!!! 새로 연결(ListPlace 새 거생성)
+        listPlaceRepository.save(ListPlace.builder()
+                .list(list)
+                .place(place)
+                .build());
 
         return toDto(place);
     }

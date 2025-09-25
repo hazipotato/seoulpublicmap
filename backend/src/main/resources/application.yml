@@ -26,4 +26,6 @@ logging.level.org.hibernate.SQL: debug
 
 
 kakao:
-  rest-key: ${KAKAO_REST_KEY}
+  api:
+    key: "0d937cf6567f2345bbb9e5bde929c0e5"
+    url: "https://dapi.kakao.com"
