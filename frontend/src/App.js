@@ -86,7 +86,7 @@ function App() {
         onAddListClick={togglePopup}
         onToggleAdd={toggleAdd}/>
       {showPopup && <Popup onClose={togglePopup} sidebarWidth={sidebarWidth}/>}
-      <div id="map" style={{ width: "100vw", eight: "100vh", position: "absolute", top: 0, left: 0, zIndex: 0 }}></div>
+      <div id="map" style={{ width: "100vw", height: "100vh", position: "absolute", top: 0, left: 0, zIndex: 0 }}></div>
       <div
         style={{
           position: 'fixed',
